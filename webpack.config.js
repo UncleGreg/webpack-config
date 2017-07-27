@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const glob = require('glob');
 const PurifyCSSPlugin = require('purifycss-webpack');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const cssDev = ['style-loader', 'css-loader', 'stylus-loader'];
@@ -65,6 +66,24 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new PurifyCSSPlugin({
       paths: glob.sync(path.join(__dirname, 'src/*.html'))
-    })
+    }),
+    new BrowserSyncPlugin({
+      host: 'localhost',
+      port: 3000,
+      proxy: 'http://localhost:8080/',
+      files: [
+        {
+          match: [
+            '**/*.html'
+          ],
+          fn: function(event, file){
+            if (event === "change") {
+              const bs = require('browser-sync').get('bs-webpack-plugin');
+              bs.reload();
+            }
+          }
+        }
+      ]
+    }, { reload: false })
   ]
 }
