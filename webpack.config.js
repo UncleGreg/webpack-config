@@ -42,10 +42,11 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, '/dist'),
     compress: true,
-    port: 8080,
+    port: 25555,
     stats: 'errors-only',
     open: true,
     openPage: '',
+    disableHostCheck: true,
     hot:true
   },
   plugins:[
@@ -68,9 +69,10 @@ module.exports = {
       paths: glob.sync(path.join(__dirname, 'src/*.html'))
     }),
     new BrowserSyncPlugin({
-      host: 'localhost',
-      port: 3000,
-      proxy: 'http://localhost:8080/',
+      open: 'external',
+      host: '0.0.0.0',
+      port: 25500,
+      proxy: '0.0.0.0:25555',
       files: [
         {
           match: [
