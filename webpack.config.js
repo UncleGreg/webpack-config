@@ -29,7 +29,13 @@ module.exports = {
       {
         test:/\.js$/,
         exclude: /node_modules/,
-        use: 'babel-loader' 
+        use:{
+          loader: 'babel-loader',
+          options: {
+            "presets": ["env"],
+            "plugins": ["syntax-dynamic-import"]
+          }
+          }
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
@@ -63,6 +69,7 @@ module.exports = {
       disable: !isProduction,
       allChunks: true
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new PurifyCSSPlugin({
