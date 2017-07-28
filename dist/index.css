@@ -63,4 +63,7 @@ body {
   color: #fff;
   font-family: sans-serif;
   background: #333;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }

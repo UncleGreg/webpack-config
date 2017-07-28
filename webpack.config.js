@@ -7,10 +7,10 @@ const PurifyCSSPlugin = require('purifycss-webpack');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
-const cssDev = ['style-loader', 'css-loader', 'stylus-loader'];
+const cssDev = ['style-loader', 'css-loader', 'autoprefixer-loader', 'stylus-loader'];
 const cssProduction = ExtractTextPlugin.extract({
           fallback: 'style-loader', 
-          use: ['css-loader', 'stylus-loader'],
+          use: ['css-loader', 'autoprefixer-loader', 'stylus-loader'],
         })
 const cssConfig = isProduction ? cssProduction : cssDev;
 
