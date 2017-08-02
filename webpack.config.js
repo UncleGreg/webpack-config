@@ -5,6 +5,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const glob = require('glob');
 const PurifyCSSPlugin = require('purifycss-webpack');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const rupture = require('rupture');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const cssDev = ['style-loader', 'css-loader', 'autoprefixer-loader', 'stylus-loader'];
@@ -75,10 +76,23 @@ module.exports = {
     new PurifyCSSPlugin({
       paths: glob.sync(path.join(__dirname, 'src/*.html'))
     }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context:path.resolve(__dirname, 'src'),
+        stylus:{
+          use:[
+            require('rupture')()
+          ],
+          import: [
+            path.resolve(__dirname, 'src/index.styl')
+          ]
+        }
+      }
+    }),
     new BrowserSyncPlugin({
       open: 'external',
       host: '0.0.0.0',
-      port: 25500,
+      port: 25550,
       proxy: '0.0.0.0:25555',
       files: [
         {
