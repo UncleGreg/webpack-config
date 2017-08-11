@@ -10,9 +10,9 @@ const rupture = require('rupture');
 const isProduction = process.env.NODE_ENV === 'production';
 const cssDev = ['style-loader', 'css-loader', 'autoprefixer-loader', 'stylus-loader'];
 const cssProduction = ExtractTextPlugin.extract({
-          fallback: 'style-loader', 
-          use: ['css-loader', 'autoprefixer-loader', 'stylus-loader'],
-        })
+  fallback: 'style-loader', 
+  use: ['css-loader', 'autoprefixer-loader', 'stylus-loader'],
+})
 const cssConfig = isProduction ? cssProduction : cssDev;
 
 module.exports = {
@@ -36,14 +36,14 @@ module.exports = {
             "presets": ["env"],
             "plugins": ["syntax-dynamic-import"]
           }
-          }
+        }
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
           'file-loader?name=img/[hash:6].[ext]' 
         ]
-        }
+      },
     ]
   },
   devServer: {
